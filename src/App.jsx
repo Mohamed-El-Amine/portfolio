@@ -1,6 +1,7 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
-import Projects from './components/Projects'
+import Work from './components/Work'
+import Formation from './components/Formation'
 import './styles/index.css'
 import "./fonts/css/satoshi.css"
 import "./fonts/css/expose.css"
@@ -10,7 +11,8 @@ function App() {
     <>
       <Header />
       <Hero />
-      <Projects />
+      <Work />
+      <Formation/>
     </>
   )
 }
