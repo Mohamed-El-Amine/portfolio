@@ -16,9 +16,10 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  width: 50%;
-  max-width: 1200px;
+  width: 40%;
+  min-width: 500px;
   padding: 10px 24px;
+
   background: rgba(19, 20, 21, 0.4);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -51,43 +52,123 @@ body {
 .header-name {
   font-size: 1.2rem;
   font-weight: 900;
-  font-family: 'Satoshi';
+  font-family: "Satoshi";
 }
 
+@media (max-width: 500px) {
+  .header {
+    position: relative;
+    width: 90%;
+    min-width: auto;
+    overflow: hidden;
+  }
+}
+@media (max-width: 400px) {
+  .header {
+    position: relative;
+    width: 85%;
+    min-width: auto;
+    overflow: hidden;
+  }
+  .header-name {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .header {
+    display: none;
+  }
+}
 /* Hero */
 .hero {
   display: flex;
-  text-align: center;
-  background: #131415;
-  color: #f9fafb;
-  min-height: 65vh;
-  padding: 100px 20px;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  color: #f9fafb;
+  min-height: 70vh;
+  padding: 120px 20px;
+  gap: 4rem; /* espace horizontal entre photo et texte */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left; /* plus naturel à droite */
+  max-width: 600px;
 }
 
 .hero-photo {
-  width: 260px;
-  height: 260px;
-  border-radius: 100%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  flex-shrink: 0; /* photo ne se rétrécit pas */
+  object-fit: cover;
+}
+
+/* Noms stackés proprement */
+.hero-names {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .hero-name {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 1000;
   font-family: Expose-Bold;
+  line-height: 1.1;
+  margin: 0;
 }
 
 .hero-name-ar {
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 900;
-  font-family: "Helvetica Neue", "Arial", sans-serif;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  line-height: 1;
+  margin: 0;
 }
 
 .hero-subtitle {
-  font-size: 1.1rem;
-  margin-top: 10px;
+  font-size: 1.2rem;
   color: #a5b4fc;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Mobile : photo au-dessus */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+    padding: 100px 20px;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-name-ar {
+    font-size: 3.5rem;
+  }
+
+  .hero-name {
+    font-size: 2.5rem;
+  }
+}
+
+.hero-name-ar {
+  font-size: 5rem;
+  font-weight: 900; /* ou 400 pour plus fluide */
+  font-family: "Amiri", "Rakkas1", "Helvetica Neue";
+  line-height: 1;
+  font-feature-settings: "liga" 1, "clig" 1; /* ligatures arabes */
 }
 
 /* Projects */
@@ -109,7 +190,6 @@ body {
   margin-bottom: 30px;
 }
 
-
 .project {
   background: #17191b;
   border-radius: 12px;
@@ -128,7 +208,6 @@ body {
   width: 100%;
   overflow: hidden;
 }
-
 
 .project-image {
   filter: grayscale(100%);
@@ -254,7 +333,7 @@ body {
 .formation-name {
   font-size: 1.4rem;
   font-weight: 900;
-  font-family: 'Expose-Bold', 'Satoshi-Bold', sans-serif;
+  font-family: "Expose-Bold", "Satoshi-Bold", sans-serif;
   margin-bottom: 6px;
   color: #f9fafb;
 }
@@ -292,4 +371,124 @@ body {
   margin-left: 15%;
   margin-right: 15%;
   margin-bottom: 40%;
+}
+/* LogoBanner wrapper */
+.logobanner {
+  width: 100%;
+  background-color: transparent;
+  margin-bottom: 50px;
+  padding: 10px 0;
+}
+
+/* la liste qui défile */
+.logobanner-list {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+  animation: logos-scroll 30s linear infinite;
+}
+
+/* chaque item */
+.logobanner li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* image */
+.logobanner-list li img {
+  width: 25px;
+  border-radius: 8px;
+  height: 25px;
+}
+
+/* animation */
+@keyframes logos-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.bg-texture-container {
+  position: fixed;
+  width: 100vw; height: 100vh;
+  background: #131415;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg-text-layer {
+  position: absolute;
+  inset: 0;
+  font-family: 'Satoshi-Regular', monospace;
+  font-size: clamp(12rem, 25vw, 20rem);
+  font-weight: 500;
+  color: rgba(165, 180, 252, var(--opacity, 0.06));
+  white-space: nowrap;
+  line-height: 1;
+  mix-blend-mode: soft-light;
+  /* RÉPÉTITION INFINIE */
+  mask: 
+    radial-gradient(circle at 25% 25%, transparent 20%, black 25%),
+    radial-gradient(circle at 75% 75%, transparent 20%, black 25%);
+  mask-size: 400px 400px;
+  mask-repeat: repeat;
+  animation: text-float 30s ease-in-out infinite;
+}
+
+@keyframes text-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(1%, 0.5%) scale(1.02); }
+  66% { transform: translate(-0.5%, -0.3%) scale(0.98); }
 }
