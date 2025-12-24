@@ -13,7 +13,7 @@ import passagentImage from '../assets/image/PassAgent.webp'
 import passagentVideo from '../assets/video/PassAgent.webm'
 
 import mazyLogo from '../assets/logo/Mazy.ico'
-import mazyImage from '../assets/image/Mazy.webp'
+import mazyImage from '../assets/image/Mazy.png'
 import mazyVideo from '../assets/video/Mazy.webm'
 
 import shortngroundLogo from '../assets/logo/Shortnground.jpg'
@@ -51,7 +51,7 @@ function Project({ logo, image, video, name, type, tags, date, description }) {
     return (
         <div id="work" className="project">
             <div className="project-media">
-                <h3 className="project-date"><ProjectDate date={date} /></h3>
+                <h3 className="project-date"><ProjectDate date={date}/></h3>
                 <img src={image} className="project-image" />
                 <video
                     autoPlay muted loop

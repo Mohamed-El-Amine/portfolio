@@ -17,7 +17,7 @@ function Hero() {
         <p className="hero-subtitle">
           Discode, PassAgent, Bumpless… Never heard of them?
         </p>
-        <p>Currently working on Discode.dev</p>
+        <p className='hero-current'>Currently working on Discode.dev</p>
       </div>
     </section>
   )

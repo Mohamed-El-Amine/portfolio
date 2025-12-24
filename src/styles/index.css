@@ -104,6 +104,7 @@ body {
 }
 
 .hero-photo {
+  display: none;
   width: 280px;
   height: 280px;
   border-radius: 50%;
@@ -119,19 +120,8 @@ body {
 }
 
 .hero-name {
-  font-size: 3rem;
-  font-weight: 1000;
+  font-size: 4rem;
   font-family: Expose-Bold;
-  line-height: 1.1;
-  margin: 0;
-}
-
-.hero-name-ar {
-  font-size: 4.5rem;
-  font-weight: 900;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  line-height: 1;
-  margin: 0;
 }
 
 .hero-subtitle {
@@ -139,6 +129,25 @@ body {
   color: #a5b4fc;
   margin: 0;
   line-height: 1.5;
+}
+
+.hero-current {
+  font-size: 1.2rem;
+  color: #ffffff5f;
+  margin: 0;
+  line-height: 1.5;
+}
+
+
+.hero-name-ar {
+  font-size: 7.3rem;
+  text-align: right;
+  font-weight: 900; /* ou 400 pour plus fluide */
+  font-family: "Amir2", "Rakkas1", "Helvetica Neue1";
+  line-height: 1;
+  font-feature-settings: "liga" 1, "clig" 1; /* ligatures arabes */
+  padding: 40px;
+  padding-top: 0px;
 }
 
 /* Mobile : photo au-dessus */
@@ -161,14 +170,6 @@ body {
   .hero-name {
     font-size: 2.5rem;
   }
-}
-
-.hero-name-ar {
-  font-size: 5rem;
-  font-weight: 900; /* ou 400 pour plus fluide */
-  font-family: "Amiri", "Rakkas1", "Helvetica Neue";
-  line-height: 1;
-  font-feature-settings: "liga" 1, "clig" 1; /* ligatures arabes */
 }
 
 /* Projects */
@@ -241,6 +242,7 @@ body {
   background: rgba(0, 0, 0, 0.6);
   color: #f9fafb;
   font-size: 0.75rem;
+  z-index: 1;
 }
 
 /* Logo en bas gauche */
@@ -410,85 +412,4 @@ body {
   to {
     transform: translateX(-50%);
   }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.bg-texture-container {
-  position: fixed;
-  width: 100vw; height: 100vh;
-  background: #131415;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.bg-text-layer {
-  position: absolute;
-  inset: 0;
-  font-family: 'Satoshi-Regular', monospace;
-  font-size: clamp(12rem, 25vw, 20rem);
-  font-weight: 500;
-  color: rgba(165, 180, 252, var(--opacity, 0.06));
-  white-space: nowrap;
-  line-height: 1;
-  mix-blend-mode: soft-light;
-  /* RÉPÉTITION INFINIE */
-  mask: 
-    radial-gradient(circle at 25% 25%, transparent 20%, black 25%),
-    radial-gradient(circle at 75% 75%, transparent 20%, black 25%);
-  mask-size: 400px 400px;
-  mask-repeat: repeat;
-  animation: text-float 30s ease-in-out infinite;
-}
-
-@keyframes text-float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(1%, 0.5%) scale(1.02); }
-  66% { transform: translate(-0.5%, -0.3%) scale(0.98); }
 }
