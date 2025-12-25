@@ -1,18 +1,20 @@
 import photo from '../assets/photo.jpg'
+import video from '../assets/video/CPU.webm'
 
 function Hero() {
   return (
     <section className="hero">
       <img className="hero-photo" src={photo} alt="Mohamed El Amine" />
-      
+      <video autoPlay muted loop className="hero-video" src={video} alt="Mohamed El Amine" />
+
       <div className="hero-content">
         <p>Hey, I'm</p>
-        
+
         <div className="hero-names">
           <h1 className="hero-name-ar">محمد الأمين</h1>
           <h1 className="hero-name">Mohamed El Amine</h1>
         </div>
-        
+
         <h2>Computer Science Student</h2>
         <p className="hero-subtitle">
           Discode, PassAgent, Bumpless… Never heard of them?

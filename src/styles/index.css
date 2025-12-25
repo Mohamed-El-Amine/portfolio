@@ -112,6 +112,14 @@ body {
   object-fit: cover;
 }
 
+.hero-video {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  flex-shrink: 0; /* photo ne se rétrécit pas */
+  object-fit: cover;
+}
+
 /* Noms stackés proprement */
 .hero-names {
   display: flex;
