@@ -6,7 +6,7 @@ import discodeVideo from '../assets/video/Discode.webm'
 
 import bumplessLogo from '../assets/logo/Bumpless.png'
 import bumplessImage from '../assets/image/Bumpless.png'
-import bumplessVideo from '../assets/video/Bumpless.mp4'
+import bumplessVideo from '../assets/video/Bumpless.webm'
 
 import passagentLogo from '../assets/logo/PassAgent.ico'
 import passagentImage from '../assets/image/PassAgent.webp'
@@ -18,7 +18,7 @@ import mazyVideo from '../assets/video/Mazy.webm'
 
 import shortngroundLogo from '../assets/logo/Shortnground.jpg'
 import shortngroundImage from '../assets/image/Shortnground.png'
-import shortngroundVideo from '../assets/video/Shortnground.mp4'
+import shortngroundVideo from '../assets/video/Shortnground.webm'
 
 function Work() {
     return (
