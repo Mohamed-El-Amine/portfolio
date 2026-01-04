@@ -15,11 +15,21 @@ function Hero() {
           <h1 className="hero-name">Mohamed El Amine</h1>
         </div>
 
-        <h2>Computer Science Student</h2>
-        <p className="hero-subtitle">
-          Discode, PassAgent, Bumpless… Never heard of them?
-        </p>
-        <p className='hero-current'>Currently working on Discode.dev</p>
+        <h2>
+          <span style={{fontWeight: 900}}>
+            Computer Science Student
+          </span>
+          <br />
+          <span style={{ fontSize: '0.8em', fontWeight: 300, color: '#ffffff5f'}}>
+            who likes to see how it works under the hood.
+          </span>
+        </h2>
+
+        <div>
+          <p className="hero-subtitle">Discode, PassAgent, Bumpless… Never heard of them?</p>
+
+          <p className='hero-current'>Currently working on Discode.dev</p>
+        </div>
       </div>
     </section>
   )
