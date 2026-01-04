@@ -22,54 +22,138 @@ import shortngroundVideo from '../assets/video/Shortnground.webm'
 
 function Work() {
     return (
-        <div className='work'>
-            <h1 className='work-title'>Here is my Work</h1>
+        <section id="work" className='work'>
+            <h1 className='work-title'>Experiences & Projects</h1>
             <Projects />
-        </div>
+        </section>
     )
 }
 
 function Projects() {
     const projectsList = [
-        { id: 0, logo: discodeLogo, image: discodeImage, video: discodeVideo, name: 'Discode', type: 'Messaging Web App', tags: ['code', 'dev', 'discord'], date: '2025-09-01', description: "Chat temps réel avec IA, fait par un étudiant. Communication (relativement) sécurisée, architecture ambitieuse et bugs en bonus. Gratuit parce qu'on apprend encore." },
-        { id: 1, logo: shortngroundLogo, image: shortngroundImage, video: shortngroundVideo, name: 'Shortnground', type: 'Hardware Conception project', tags: ['PCB', 'Electronics', 'Keyboard'], date: '2023-10-24', description: "Design of printed circuit boards (PCBs) for custom mechanical keyboards and study of ARM-based SoCs" },
-        { id: 2, logo: mazyLogo, image: mazyImage, video: mazyVideo, name: 'Mazy', type: 'Maze Java Game', tags: ['Maze', 'exit', 'game'], date: '2025-10-24', description: "Mazy is a java Object orented game with advanced feature." },
-        { id: 3, logo: passagentLogo, image: passagentImage, video: passagentVideo, name: 'PassAgent', type: 'Password Manager & Gnerator', tags: ['Password', 'Security', 'python', 'UI'], date: '2023-01-11', description: "PassAgent is a modern password generator application developed in Python using customtkinter for a sleek, dark-mode UI. It allows you to generate strong passwords, copy them to the clipboard, and save them to a dedicated file." },
-        { id: 4, logo: bumplessLogo, image: bumplessImage, video: bumplessVideo, name: 'Bumpless', type: '1v1 Pyhton Game', tags: ['tank', '1v1', 'bump', 'bounce'], date: '2024-03-29', description: "Bumpless Battle Tank est un jeu en un contre un avec des Tanks armés de Rockets." },
+        {
+            id: 0,
+            name: "Discode",
+            type: "Messaging Web Application",
+            context: "BUT Informatique – Academic Project",
+            dateStart: "2025-02-01",
+            dateEnd: "Present",
+            logo: discodeLogo,
+            image: discodeImage,
+            video: discodeVideo,
+            description:
+                "Design and development of a real-time messaging web application integrating AI features. The project focuses on secure communication, system architecture, and scalability.",
+            skills: ["Web development", "Real-time communication", "System architecture", "Teamwork"],
+            proof: "https://github.com/Mohamed-El-Amine/Discode"
+        },
+        {
+            id: 1,
+            name: "Mazy",
+            type: "Java Object-Oriented Game",
+            context: "BUT Informatique – Academic Project",
+            dateStart: "2024-10-01",
+            dateEnd: "2025-01-15",
+            logo: mazyLogo,
+            image: mazyImage,
+            video: mazyVideo,
+            description:
+                "Development of a Java maze game using object-oriented programming principles. Focus on game logic, class design, and user interaction.",
+            skills: ["Java", "Object-Oriented Programming", "Algorithmic thinking"],
+            proof: "https://gitlab.univ-lille.fr/sae302/2025/I3_SAE3.3"
+        },
+        {
+            id: 2,
+            name: "PassAgent",
+            type: "Password Manager & Generator",
+            context: "Personal Project",
+            dateStart: "2023-01-11",
+            dateEnd: "2023-03-01",
+            logo: passagentLogo,
+            image: passagentImage,
+            video: passagentVideo,
+            description:
+                "Development of a desktop password manager in Python featuring password generation, clipboard interaction, and file storage.",
+            skills: ["Python", "UI design", "Security fundamentals"],
+            proof: "https://github.com/Mohamed-El-Amine/PassAgent"
+        },
+        {
+            id: 3,
+            name: "Bumpless",
+            type: "1v1 Python Game",
+            context: "Personal Project",
+            dateStart: "2024-03-01",
+            dateEnd: "2024-03-29",
+            logo: bumplessLogo,
+            image: bumplessImage,
+            video: bumplessVideo,
+            description:
+                "Design of a two-player tank game focusing on physics-based movement, collisions, and gameplay mechanics.",
+            skills: ["Python", "Game logic", "Problem solving"],
+            proof: "https://github.com/Anas-SIBARNI/bumpless"
+        },
+        {
+            id: 4,
+            name: "Shortnground",
+            type: "Hardware Design Project",
+            context: "Personal Project",
+            dateStart: "2023-10-01",
+            dateEnd: "2023-12-01",
+            logo: shortngroundLogo,
+            image: shortngroundImage,
+            video: shortngroundVideo,
+            description:
+                "Design of printed circuit boards (PCBs) for custom mechanical keyboards and study of ARM-based systems.",
+            skills: ["Electronics", "PCB design", "Hardware analysis"],
+            proof: "https://www.instagram.com/shortnground/"
+        }
     ]
 
     return (
         <div className="projects">
-            {projectsList.map((i) => (
-                <Project key={i.id} logo={i.logo} image={i.image} video={i.video} name={i.name} type={i.type} tags={i.tags} date={i.date} description={i.description} />
+            {projectsList.map((p) => (
+                <Project key={p.id} {...p} />
             ))}
         </div>
     )
 }
 
-function Project({ logo, image, video, name, type, tags, date, description }) {
+function Project({
+    logo,
+    image,
+    video,
+    name,
+    type,
+    context,
+    dateStart,
+    dateEnd,
+    description,
+    skills,
+    proof
+}) {
     return (
-        <div id="work" className="project">
+        <div className="project">
             <div className="project-media">
-                <h3 className="project-date"><ProjectDate date={date}/></h3>
+                <h3 className="project-date">{dateStart} – {dateEnd}</h3>
                 <img src={image} className="project-image" />
-                <video
-                    autoPlay muted loop
-                    src={video}
-                    className="project-video"
-                />
+                <video autoPlay muted loop src={video} className="project-video" />
                 <img src={logo} className="project-logo" />
             </div>
 
             <div className="project-info">
                 <h3 className="project-name">{name}</h3>
                 <h4 className="project-type">{type}</h4>
+                <p className="project-context">{context}</p>
                 <p className="project-description">{description}</p>
+
                 <ul className="project-tags">
-                    {tags.map((tag) => (
-                        <li key={tag}>{tag}</li>
+                    {skills.map((skill) => (
+                        <li key={skill}>{skill}</li>
                     ))}
                 </ul>
+
+                <a href={proof} className="project-proof" target="_blank">
+                    View project
+                </a>
             </div>
         </div>
     )

@@ -147,7 +147,6 @@ body {
   line-height: 1.5;
 }
 
-
 .hero-name-ar {
   font-size: 7.3rem;
   text-align: right;
@@ -381,7 +380,7 @@ body {
   gap: 30px;
   margin-left: 15%;
   margin-right: 15%;
-  margin-bottom: 40%;
+  margin-bottom: 4%;
 }
 /* LogoBanner wrapper */
 .logobanner {
@@ -420,5 +419,182 @@ body {
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+.formation-logo {
+  height: 64px;
+  object-fit: contain; /* ratios variables OK */
+  margin-bottom: 0.8rem;
+} /* ===== Mindmap propre et stylé ===== */
+.mindmap {
+  position: relative;
+  width: 100%;
+  max-width: 70%; /* on garde la largeur à 70% pour respecter les margins */
+  margin: 2rem auto; /* centré horizontalement */
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Nœud central */
+.mindmap-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1c2023; /* couleur sombre */
+  color: #a5b4fc; /* texte bleu clair */
+  padding: 1.2rem 2rem;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(165, 180, 252, 0.3);
+  z-index: 10;
+}
+
+/* Nœuds périphériques */
+.mindmap-node {
+  position: absolute;
+  background: rgba(29, 31, 33, 0.9);
+  color: #f9fafb;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  text-align: center;
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Hover effet */
+.mindmap-node:hover {
+  transform: scale(1.15);
+  background: #2a2d30;
+  box-shadow: 0 0 15px rgba(165, 180, 252, 0.5);
+}
+
+/* Placement circulaire des nœuds */
+.node-0 {
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.node-1 {
+  top: 20%;
+  left: 80%;
+  transform: translate(-50%, 0);
+}
+.node-2 {
+  top: 50%;
+  left: 95%;
+  transform: translate(-50%, -50%);
+}
+.node-3 {
+  top: 80%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+.node-4 {
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.node-5 {
+  top: 80%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+.node-6 {
+  top: 50%;
+  left: 5%;
+  transform: translate(-50%, -50%);
+}
+.node-7 {
+  top: 20%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+.node-8 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -150%);
+}
+
+/* Lignes connectant le centre aux nœuds */
+.mindmap-node::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 100px;
+  background: rgba(165, 180, 252, 0.3);
+  top: 50%;
+  left: 50%;
+  transform-origin: top center;
+}
+
+/* Rotation pour effet radial */
+.node-0::before {
+  transform: rotate(180deg);
+}
+.node-1::before {
+  transform: rotate(225deg);
+}
+.node-2::before {
+  transform: rotate(270deg);
+}
+.node-3::before {
+  transform: rotate(315deg);
+}
+.node-4::before {
+  transform: rotate(0deg);
+}
+.node-5::before {
+  transform: rotate(45deg);
+}
+.node-6::before {
+  transform: rotate(90deg);
+}
+.node-7::before {
+  transform: rotate(135deg);
+}
+.node-8::before {
+  display: none;
+} /* centre, pas besoin de ligne */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 24px;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.contact-info p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  color: #d1d5db; /* texte gris clair */
+}
+
+.contact-info a {
+  color: #a5b4fc; /* liens bleu clair */
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.contact-info a:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer {
+    align-items: center;
+    text-align: center;
   }
 }

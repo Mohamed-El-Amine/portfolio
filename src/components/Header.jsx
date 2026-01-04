@@ -4,10 +4,11 @@ function Header() {
       <nav className="header-nav">
         <a className="header-name" href="#">محمد</a>
         <ul className="header-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#work">Work</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#contact">Contacts</a></li>
+          <li><a href="#home">Accueil</a></li>
+          <li><a href="#formations">Formations</a></li>
+          <li><a href="#realisations">Réalisations</a></li>
+          <li><a href="#competences">Compétences</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
     </header>
