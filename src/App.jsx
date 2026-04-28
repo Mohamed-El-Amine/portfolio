@@ -16,9 +16,9 @@ function App() {
       <Header />
       <Hero />
       <LogoBanner />
-      <Formation />
       <Work />
-      <Skills />
+      {/* <Skills /> */}
+      <Formation />
       <Footer />
     </>
   )

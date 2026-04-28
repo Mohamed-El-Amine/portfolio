@@ -5,7 +5,7 @@ function Hero() {
   return (
     <section className="hero">
       <img className="hero-photo" src={photo} alt="Mohamed El Amine" />
-      <video autoPlay muted loop className="hero-video" src={video} alt="Mohamed El Amine" />
+      <video autoPlay muted loop preload="auto" fetchPriority="high" className="hero-video" src={video} alt="Mohamed El Amine" />
 
       <div className="hero-content">
         <p>Hey, I'm</p>
@@ -39,7 +39,7 @@ function Hero() {
         <div>
           <p className="hero-subtitle">Discode, PassAgent, Bumpless… Never heard of them?</p>
 
-          <p className='hero-current'>Currently working on Discode.dev</p>
+          <p className='hero-current'>Currently working at BK Fire as an intern.</p>
         </div>
       </div>
     </section>

@@ -2,19 +2,17 @@ function Formations() {
   const formationList = [
     {
       id: 1,
-      name: "BUT Informatique (2ᵉ year)",
+      name: "BUT Informatique",
       detail: "Institut Universitaire de Technologie A – University of Lille",
-      grade: "Specialization: Application Development",
+      grade: "Specialisation: Application Development",
       year: "2024 – Present",
-      logo: "src/assets/logo/IUT.png"
     },
     {
       id: 2,
-      name: "General Baccalaureate – European English Option",
+      name: "General Baccalaureate – Euro",
       detail: "Lycée Gustave Eiffel, Armentières",
-      grade: "Graduated with honors (Mention Bien)",
+      grade: "Graduated with honors (Mention Bien) – European English Option",
       year: "2021 – 2024",
-      logo: "src/assets/logo/Eiffel.png"
     }
   ]
 
@@ -37,13 +35,6 @@ function Formations() {
 function Formation({ name, detail, grade, year, logo }) {
   return (
     <div className="formation">
-      {/* Logo ajouté sans impacter le layout */}
-      <img
-        src={logo}
-        alt={detail}
-        className="formation-logo"
-      />
-
       <h1 className="formation-name">{name}</h1>
       <p className="formation-year">{year}</p>
       <h3 className="formation-detail">{detail}</h3>

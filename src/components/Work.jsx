@@ -35,7 +35,7 @@ function Projects() {
             id: 0,
             name: "Discode",
             type: "Messaging Web Application",
-            context: "BUT Informatique – Academic Project",
+            context: "Personal Project",
             dateStart: "2025-02-01",
             dateEnd: "Present",
             logo: discodeLogo,
@@ -43,7 +43,7 @@ function Projects() {
             video: discodeVideo,
             description:
                 "Design and development of a real-time messaging web application integrating AI features. The project focuses on secure communication, system architecture, and scalability.",
-            skills: ["Web development", "Real-time communication", "System architecture", "Teamwork"],
+            skills: ["Web development", "Real-time communication", "System architecture", "AI"],
             proof: "https://github.com/Mohamed-El-Amine/Discode"
         },
         {
@@ -135,24 +135,24 @@ function Project({
             <div className="project-media">
                 <h3 className="project-date">{dateStart} – {dateEnd}</h3>
                 <img src={image} className="project-image" />
-                <video autoPlay muted loop src={video} className="project-video" />
+                <video autoPlay muted loop preload="none" src={video} className="project-video" />
                 <img src={logo} className="project-logo" />
             </div>
 
             <div className="project-info">
-                <h3 className="project-name">{name}</h3>
-                <h4 className="project-type">{type}</h4>
-                <p className="project-context">{context}</p>
-                <p className="project-description">{description}</p>
+                <a href={proof} className="project-info">
+                    <h3 className="project-name">{name}</h3>
+                    <div className="project-details">
+                        <h4 className="project-type">{type}</h4>
+                        <h4 className="project-context">{context}</h4>
+                    </div>
+                    <p className="project-description">{description}</p>
 
-                <ul className="project-tags">
-                    {skills.map((skill) => (
-                        <li key={skill}>{skill}</li>
-                    ))}
-                </ul>
-
-                <a href={proof} className="project-proof" target="_blank">
-                    View project
+                    <ul className="project-tags">
+                        {skills.map((skill) => (
+                            <li key={skill}>{skill}</li>
+                        ))}
+                    </ul>
                 </a>
             </div>
         </div>
