@@ -7,6 +7,194 @@
 
 body {
   background-color: #131415;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  opacity: 0.35;
+  background-image: url("../assets/svg/topography.svg");
+  background-repeat: repeat;
+  background-size: 640px;
+  background-position: 0 0;
+  will-change: transform, background-position;
+  animation:
+    cameraDrift 19s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite,
+    cameraFloat 13s cubic-bezier(0.37, 0, 0.63, 1) infinite,
+    cameraZoom 15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes cameraDrift {
+  0% {
+    background-position: 0px 0px;
+  }
+
+  20% {
+    background-position: 40px -20px;
+  }
+
+  45% {
+    background-position: 90px 15px;
+  }
+
+  70% {
+    background-position: 45px 40px;
+  }
+
+  100% {
+    background-position: 0px 0px;
+  }
+}
+
+@keyframes cameraFloat {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate3d(-12px, 8px, 0) rotate(-0.3deg);
+  }
+
+  50% {
+    transform: translate3d(10px, -6px, 0) rotate(0.25deg);
+  }
+
+  75% {
+    transform: translate3d(-6px, 12px, 0) rotate(-0.2deg);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+@keyframes cameraZoom {
+  0% {
+    scale: 1;
+  }
+
+  30% {
+    scale: 1.04;
+  }
+
+  55% {
+    scale: 0.98;
+  }
+
+  80% {
+    scale: 1.03;
+  }
+
+  100% {
+    scale: 1;
+  }
+
+}
+
+.tiles-section {
+  width: 100%;
+  overflow: hidden;
+  padding: 24px 0;
+}
+
+.tiles-marquee {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right,
+      transparent 0%,
+      white 8%,
+      white 92%,
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%,
+      white 8%,
+      white 92%,
+      transparent 100%);
+}
+
+.tiles-track {
+  display: flex;
+  width: max-content;
+  gap: 7px;
+  animation: tiles-scroll 55s linear infinite;
+  will-change: transform;
+}
+
+.tiles-group {
+  display: grid;
+  grid-template-rows: repeat(7, 40px);
+  grid-auto-flow: column dense;
+  grid-auto-columns: 40px;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.tile {
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  transform: translateZ(0);
+}
+
+.tile img,
+.tile video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tile.is-video {
+  border-color: rgba(165, 180, 252, 0.24);
+}
+
+.tile.is-image {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* .tiles-marquee:hover .tiles-track {
+  animation-play-state: paused;
+} */
+
+@keyframes tiles-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 3.5px));
+  }
+}
+
+@media (max-width: 768px) {
+  .tiles-track {
+    gap: 6px;
+    animation-duration: 42s;
+  }
+
+  .tiles-group {
+    grid-template-rows: repeat(7, 28px);
+    grid-auto-columns: 28px;
+    gap: 6px;
+  }
+
+  .tile {
+    border-radius: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tiles-track {
+    animation: none;
+    transform: translateX(0);
+  }
 }
 
 /* Header */
@@ -27,7 +215,7 @@ body {
   border-radius: 10px;
 }
 
-.project-context{
+.project-context {
   padding-left: 5px
 }
 
@@ -67,6 +255,7 @@ body {
     overflow: hidden;
   }
 }
+
 @media (max-width: 400px) {
   .header {
     position: relative;
@@ -74,6 +263,7 @@ body {
     min-width: auto;
     overflow: hidden;
   }
+
   .header-name {
     display: none;
   }
@@ -84,6 +274,7 @@ body {
     display: none;
   }
 }
+
 /* Hero */
 .hero {
   display: flex;
@@ -94,7 +285,8 @@ body {
   min-height: 70vh;
   padding: 120px 20px;
   padding-bottom: 0px;
-  gap: 4rem; /* espace horizontal entre photo et texte */
+  gap: 4rem;
+  /* espace horizontal entre photo et texte */
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -104,7 +296,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  text-align: left; /* plus naturel à droite */
+  text-align: left;
+  /* plus naturel à droite */
   max-width: 600px;
 }
 
@@ -113,7 +306,8 @@ body {
   width: 280px;
   height: 280px;
   border-radius: 50%;
-  flex-shrink: 0; /* photo ne se rétrécit pas */
+  flex-shrink: 0;
+  /* photo ne se rétrécit pas */
   object-fit: cover;
 }
 
@@ -121,7 +315,8 @@ body {
   width: 280px;
   height: 280px;
   border-radius: 50%;
-  flex-shrink: 0; /* photo ne se rétrécit pas */
+  flex-shrink: 0;
+  /* photo ne se rétrécit pas */
   object-fit: cover;
 }
 
@@ -155,11 +350,13 @@ body {
 .hero-name-ar {
   font-size: 7.3rem;
   text-align: right;
-  font-weight: 900; /* ou 400 pour plus fluide */
+  font-weight: 900;
+  /* ou 400 pour plus fluide */
   font-family: "Amir2", "Rakkas1", "Helvetica Neue1";
   line-height: 1;
   z-index: 99;
-  font-feature-settings: "liga" 1, "clig" 1; /* ligatures arabes */
+  font-feature-settings: "liga" 1, "clig" 1;
+  /* ligatures arabes */
   padding: 40px;
   padding-top: 0px;
 }
@@ -214,8 +411,11 @@ body {
 }
 
 .project:hover {
-  transform: translateY(-15px);
-  transform: scale(1000px);
+  transform: translateY(-15px) scale(1.02);
+}
+
+.project-tags {
+  color: #f9fafb95;
 }
 
 .project-media {
@@ -374,7 +574,7 @@ body {
   color: #d1d5db;
 }
 
-.project-details{
+.project-details {
   display: flex;
 }
 
@@ -393,6 +593,7 @@ body {
   margin-right: 15%;
   margin-bottom: 30px;
 }
+
 /* LogoBanner wrapper */
 .logobanner {
   width: 100%;
@@ -428,6 +629,7 @@ body {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-50%);
   }
@@ -435,7 +637,8 @@ body {
 
 .formation-logo {
   height: 64px;
-  object-fit: contain; /* ratios variables OK */
+  object-fit: contain;
+  /* ratios variables OK */
   margin-bottom: 0.8rem;
 }
 
@@ -450,7 +653,7 @@ body {
   padding-bottom: 0;
 }
 
-.contact-info{
+.contact-info {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -460,11 +663,13 @@ body {
 .contact-info p {
   margin: 4px 0;
   font-size: 0.95rem;
-  color: #d1d5db71; /* texte gris clair */
+  color: #d1d5db71;
+  /* texte gris clair */
 }
 
 .contact-info a {
-  color: #a5b4fc67; /* liens bleu clair */
+  color: #a5b4fc67;
+  /* liens bleu clair */
   text-decoration: none;
   transition: opacity 0.3s;
 }

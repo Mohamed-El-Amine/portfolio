@@ -1,3 +1,4 @@
+import Tiles from './components/Tiles'
 import Footer from './components/Footer'
 import Formation from './components/Formation'
 import Header from './components/Header'
@@ -16,6 +17,7 @@ function App() {
     <>
       <Header />
       <Hero />
+      <Tiles />
       <IconList />
       <LogoBanner />
       <Work />
