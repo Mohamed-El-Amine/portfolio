@@ -1,6 +1,5 @@
-git pulleval "$(ssh-agent -s)"
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/github
+# 0. Use script to optimize content
+./script/optimize_media.sh -o ./src/assets/content/optimized -j 6 --img-kb 50 --vid-kb 800 "./src/assets/content/original"
 
 # 1. Se placer dans le dossier du projet
 cd ~/portfolio

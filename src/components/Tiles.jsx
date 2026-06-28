@@ -38,7 +38,7 @@ function Tile({ tile }) {
 }
 
 function Tiles() {
-  const modules = import.meta.glob('/src/assets/content/*.{png,jpg,jpeg,webp,avif,gif,mp4,webm}', {
+  const modules = import.meta.glob('/src/assets/content/optimized/*.{png,jpg,jpeg,webp,avif,gif,mp4,webm}', {
     eager: true,
     import: 'default',
   });
