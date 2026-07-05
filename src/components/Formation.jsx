@@ -17,7 +17,7 @@ function Formations() {
   ]
 
   return (
-    <section id="formations" className="formations">
+    <section id="graduation" className="formations">
       {formationList.map((i) => (
         <Formation
           key={i.id}

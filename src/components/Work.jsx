@@ -22,7 +22,7 @@ import shortngroundVideo from '../assets/video/Shortnground.webm'
 
 function Work() {
     return (
-        <section id="work" className='work'>
+        <section id="project" className='work'>
             <h1 className='work-title'>Experiences & Projects</h1>
             <Projects />
         </section>

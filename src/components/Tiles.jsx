@@ -63,7 +63,7 @@ function Tiles() {
     .sort((a, b) => a.id - b.id);
 
   return (
-    <section className="tiles-section">
+    <section id="feeed" className="tiles-section">
       <div className="tiles-marquee">
         <div className="tiles-track">
           <div className="tiles-group">
