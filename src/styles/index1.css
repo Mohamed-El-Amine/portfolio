@@ -1,20 +1,9 @@
-/* ============================================================
-   RESET & GLOBAL
-   ============================================================ */
-
-*,
-*::before,
-*::after {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Satoshi-Bold;
 }
-
-
-/* ============================================================
-   BASE — BODY
-   ============================================================ */
 
 body {
   background-color: #131415;
@@ -38,11 +27,6 @@ body::before {
     cameraFloat 13s cubic-bezier(0.37, 0, 0.63, 1) infinite,
     cameraZoom 15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
-
-
-/* ============================================================
-   ANIMATIONS
-   ============================================================ */
 
 @keyframes cameraDrift {
   0% {
@@ -108,7 +92,88 @@ body::before {
   100% {
     scale: 1;
   }
+
 }
+
+.tiles-section {
+  width: 100%;
+  overflow: hidden;
+  padding: 24px 0;
+}
+
+.tiles-marquee {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right,
+      transparent 0%,
+      white 8%,
+      white 92%,
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%,
+      white 8%,
+      white 92%,
+      transparent 100%);
+}
+
+.tiles-track {
+  display: flex;
+  width: max-content;
+  gap: 7px;
+  animation: tiles-scroll 55s linear infinite;
+  will-change: transform;
+}
+
+.tiles-group {
+  display: grid;
+  grid-template-rows: repeat(7, 40px);
+  grid-auto-flow: column dense;
+  grid-auto-columns: 40px;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.tiles-group2 {
+  display: grid;
+  grid-template-rows: repeat(7, 40px);
+  grid-auto-flow: column dense;
+  grid-auto-columns: 40px;
+  gap: 7px;
+  flex-shrink: 0;
+
+  justify-content: center;
+  align-content: center;
+}
+
+.tile {
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  transform: translateZ(0);
+}
+
+.tile img,
+.tile video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tile.is-video {
+  border-color: rgba(165, 180, 252, 0.24);
+}
+
+.tile.is-image {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* .tiles-marquee:hover .tiles-track {
+  animation-play-state: paused;
+} */
 
 @keyframes tiles-scroll {
   from {
@@ -120,21 +185,46 @@ body::before {
   }
 }
 
-@keyframes logos-scroll {
-  from {
-    transform: translateX(0);
+@media (max-width: 769px) {
+  .tiles-track {
+    gap: 6px;
+    animation-duration: 30s;
   }
 
-  to {
-    transform: translateX(-50%);
+  .tiles-group {
+    grid-template-rows: repeat(10, 32px);
+    grid-auto-columns: 32px;
+    grid-auto-flow: column dense;
+    gap: 6px;
+  }
+
+  .tile {
+    border-radius: 6px;
+  }
+
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(1, 1);
+    gap: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  .tiles-section {
+  width: 100%;
+  overflow: hidden;
+  padding: 12px 0;
+}
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tiles-track {
+    animation: none;
+    transform: translateX(0);
   }
 }
 
-
-/* ============================================================
-   HEADER
-   ============================================================ */
-
+/* Header */
 .header {
   position: fixed;
   top: 20px;
@@ -144,11 +234,16 @@ body::before {
   width: 40%;
   min-width: 500px;
   padding: 10px 24px;
+
   background: rgba(19, 20, 21, 0.4);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 10px;
+}
+
+.project-context {
+  padding-left: 5px
 }
 
 .header-nav {
@@ -179,11 +274,35 @@ body::before {
   font-family: "Satoshi";
 }
 
+@media (max-width: 500px) {
+  .header {
+    position: relative;
+    width: 90%;
+    min-width: auto;
+    overflow: hidden;
+  }
+}
 
-/* ============================================================
-   HERO
-   ============================================================ */
+@media (max-width: 400px) {
+  .header {
+    position: relative;
+    width: 85%;
+    min-width: auto;
+    overflow: hidden;
+  }
 
+  .header-name {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .header {
+    display: none;
+  }
+}
+
+/* Hero */
 .hero {
   display: flex;
   align-items: center;
@@ -191,8 +310,10 @@ body::before {
   background: transparent;
   color: #f9fafb;
   min-height: 70vh;
-  padding: 120px 20px 0;
+  padding: 120px 20px;
+  padding-bottom: 0px;
   gap: 4rem;
+  /* espace horizontal entre photo et texte */
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -203,6 +324,7 @@ body::before {
   flex-direction: column;
   gap: 1.5rem;
   text-align: left;
+  /* plus naturel à droite */
   max-width: 600px;
 }
 
@@ -212,6 +334,7 @@ body::before {
   height: 280px;
   border-radius: 50%;
   flex-shrink: 0;
+  /* photo ne se rétrécit pas */
   object-fit: cover;
 }
 
@@ -220,9 +343,11 @@ body::before {
   height: 280px;
   border-radius: 50%;
   flex-shrink: 0;
+  /* photo ne se rétrécit pas */
   object-fit: cover;
 }
 
+/* Noms stackés proprement */
 .hero-names {
   display: flex;
   flex-direction: column;
@@ -233,17 +358,6 @@ body::before {
   font-size: 4rem;
   z-index: 99;
   font-family: Expose-Bold;
-}
-
-.hero-name-ar {
-  font-size: 8rem;
-  text-align: right;
-  font-weight: 900;
-  font-family: 'Neckar', 'Abuhmeda-free', serif;
-  line-height: 1;
-  z-index: 99;
-  font-feature-settings: "liga" 1, "clig" 1;
-  padding-top: 0;
 }
 
 .hero-subtitle {
@@ -260,100 +374,43 @@ body::before {
   line-height: 1.5;
 }
 
-
-/* ============================================================
-   TILES / MARQUEE
-   ============================================================ */
-
-.tiles-section {
-  width: 100%;
-  overflow: hidden;
-  padding: 24px 0;
+.hero-name-ar {
+  font-size: 7.3rem;
+  text-align: right;
+  font-weight: 900;
+  /* ou 400 pour plus fluide */
+  font-family: "Amir2", "Rakkas1", "Helvetica Neue1";
+  line-height: 1;
+  z-index: 99;
+  font-feature-settings: "liga" 1, "clig" 1;
+  /* ligatures arabes */
+  padding: 40px;
+  padding-top: 0px;
 }
 
-.tiles-marquee {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  mask-image: linear-gradient(to right,
-      transparent 0%,
-      white 8%,
-      white 92%,
-      transparent 100%);
-  -webkit-mask-image: linear-gradient(to right,
-      transparent 0%,
-      white 8%,
-      white 92%,
-      transparent 100%);
+/* Mobile : photo au-dessus */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+    padding: 100px 20px;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-name-ar {
+    font-size: 3.5rem;
+  }
+
+  .hero-name {
+    font-size: 2.5rem;
+  }
 }
 
-/* .tiles-marquee:hover .tiles-track {
-  animation-play-state: paused;
-} */
-
-.tiles-track {
-  display: flex;
-  width: max-content;
-  gap: 7px;
-  animation: tiles-scroll 55s linear infinite;
-  will-change: transform;
-}
-
-.tiles-group,
-.tiles-group2 {
-  display: grid;
-  grid-template-rows: repeat(7, 40px);
-  grid-auto-flow: column dense;
-  grid-auto-columns: 40px;
-  gap: 7px;
-  flex-shrink: 0;
-}
-
-.tiles-group2 {
-  justify-content: center;
-  align-content: center;
-}
-
-.tile {
-  overflow: hidden;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-  transform: translateZ(0);
-}
-
-.tile img,
-.tile video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.tile.is-video {
-  border-color: rgba(165, 180, 252, 0.24);
-}
-
-.tile.is-image {
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-
-/* ============================================================
-   PROJECTS
-   ============================================================ */
-
-.work {
-  margin-bottom: 30px;
-}
-
-.work-title {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #f9fafb;
-}
-
+/* Projects */
 .projects {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 2fr));
@@ -362,36 +419,55 @@ body::before {
   margin-right: 15%;
 }
 
+@media (max-width: 769px) {
+
+  .projects {
+    grid-template-columns: 1fr;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+.work-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #f9fafb;
+}
+
+.work {
+  margin-bottom: 30px;
+}
+
 .project {
   background: #17191b;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: #f9fafb;
-  transition: transform 0.2s;
+  transition: 0.2s;
 }
 
 .project:hover {
   transform: translateY(-15px) scale(1.02);
 }
 
+.project-tags {
+  color: #f9fafb95;
+}
+
 .project-media {
   position: relative;
   width: 100%;
-  aspect-ratio: 19 / 12;
-  border-radius: 12px 12px 0 0;
   overflow: hidden;
+}
+
+.project-image {
+  filter: grayscale(100%);
 }
 
 .project-image,
 .project-video {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
-}
-
-.project-image {
-  filter: grayscale(100%);
 }
 
 .project-video {
@@ -405,6 +481,7 @@ body::before {
   opacity: 1;
 }
 
+/* Date en haut droite */
 .project-date {
   position: absolute;
   top: 8px;
@@ -418,6 +495,7 @@ body::before {
   z-index: 1;
 }
 
+/* Logo en bas gauche */
 .project-logo {
   position: absolute;
   left: 12px;
@@ -427,14 +505,45 @@ body::before {
   border-radius: 8px;
 }
 
-.project-info {
-  padding: 10px 15px 0;
-  text-decoration: none;
-  color: white;
+/* Tags */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
 }
 
-.project-context {
-  padding-left: 5px;
+.project-tags li {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: #1c2023;
+}
+
+.project-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 19 / 12;
+  /* même ratio pour tout le monde */
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+
+.project-info {
+  padding: 10px;
+  padding-left: 15px;
+  text-decoration: none;
+  color: white;
+  padding-bottom: 0;
+}
+
+/* image + vidéo remplissent le cadre */
+.project-image,
+.project-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .project-name {
@@ -452,39 +561,11 @@ body::before {
   color: #ffffff;
 }
 
-.project-details {
-  display: flex;
-}
-
 .project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  list-style: none;
-  color: #f9fafb95;
+  color: f9fafb95;
 }
 
-.project-tags li {
-  font-size: 0.8rem;
-  padding: 4px 8px;
-  border-radius: 8px;
-  background: #1c2023;
-}
-
-
-/* ============================================================
-   FORMATIONS
-   ============================================================ */
-
-.formations {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 30px;
-  margin-left: 15%;
-  margin-right: 15%;
-  margin-bottom: 30px;
-}
-
+/* Formation */
 .formation {
   position: relative;
   background: rgba(19, 20, 21, 0.4);
@@ -500,12 +581,6 @@ body::before {
 .formation:hover {
   transform: translateY(-8px);
   border-color: rgba(165, 180, 252, 0.3);
-}
-
-.formation-logo {
-  height: 64px;
-  object-fit: contain;
-  margin-bottom: 0.8rem;
 }
 
 .formation-name {
@@ -535,6 +610,10 @@ body::before {
   color: #d1d5db;
 }
 
+.project-details {
+  display: flex;
+}
+
 .formation-grade {
   font-size: 0.9rem;
   font-weight: 400;
@@ -542,11 +621,24 @@ body::before {
   margin-top: 4px;
 }
 
+.formations {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-bottom: 30px;
+}
 
-/* ============================================================
-   LOGO BANNER
-   ============================================================ */
+@media (max-width: 769px) {
+  .formations {
+    grid-template-columns: 1fr;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
 
+/* LogoBanner wrapper */
 .logobanner {
   width: 100%;
   background-color: transparent;
@@ -554,6 +646,7 @@ body::before {
   padding: 10px 0;
 }
 
+/* la liste qui défile */
 .logobanner-list {
   display: flex;
   gap: 25px;
@@ -561,22 +654,37 @@ body::before {
   animation: logos-scroll 30s linear infinite;
 }
 
+/* chaque item */
 .logobanner li {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* image */
 .logobanner-list li img {
   width: 25px;
-  height: 25px;
   border-radius: 8px;
+  height: 25px;
 }
 
+/* animation */
+@keyframes logos-scroll {
+  from {
+    transform: translateX(0);
+  }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.formation-logo {
+  height: 64px;
+  object-fit: contain;
+  /* ratios variables OK */
+  margin-bottom: 0.8rem;
+}
 
 .footer {
   display: flex;
@@ -584,9 +692,9 @@ body::before {
   align-items: center;
   gap: 0.8rem;
   padding: 24px;
-  padding-bottom: 0;
   margin-left: 15%;
   margin-right: 15%;
+  padding-bottom: 0;
 }
 
 .contact-info {
@@ -600,10 +708,12 @@ body::before {
   margin: 4px 0;
   font-size: 0.95rem;
   color: #d1d5db71;
+  /* texte gris clair */
 }
 
 .contact-info a {
   color: #a5b4fc67;
+  /* liens bleu clair */
   text-decoration: none;
   transition: opacity 0.3s;
 }
@@ -613,97 +723,10 @@ body::before {
   text-decoration: underline;
 }
 
-
-/* ============================================================
-   MEDIA QUERIES
-   ============================================================ */
-
-/* --- Reduced Motion --- */
-@media (prefers-reduced-motion: reduce) {
-  .tiles-track {
-    animation: none;
-    transform: translateX(0);
-  }
-}
-
-/* --- Tablet / phablet (max 769px) --- */
-@media (max-width: 769px) {
-  .tiles-track {
-    gap: 6px;
-    animation-duration: 30s;
-  }
-
-  .tiles-group {
-    grid-template-rows: repeat(10, 32px);
-    grid-auto-columns: 32px;
-    grid-auto-flow: column dense;
-    gap: 6px;
-  }
-
-  .tile {
-    border-radius: 6px;
-  }
-
-  .tiles-section {
-    padding: 12px 0;
-  }
-
-  .projects {
-    grid-template-columns: 1fr;
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-
-  .formations {
-    grid-template-columns: 1fr;
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-}
-
-/* --- Mobile (max 768px) --- */
+/* Mobile */
 @media (max-width: 768px) {
-  .hero {
-    flex-direction: column;
-    text-align: justify;
-    gap: 2rem;
-    padding: 100px 20px;
-  }
-
-  .hero-content {
-    text-align: justify;
-  }
-
-  .hero-name-ar {
-    font-size: 4.5rem;
-  }
-
-  .hero-name {
-    font-size: 2.5rem;
-  }
-
   .footer {
-    margin-left: 5%;
-    margin-right: 5%;
-    padding: 20px 0;
-    font-size: 8rem;
-  }
-
-  .contact-info {
-    flex-direction: column;
+    align-items: center;
     text-align: center;
-  }
-  .footer-label{
-    display: none;
-  }
-}
-
-/* --- Small mobile (max 500px) --- */
-@media (max-width: 500px) {
-  .header {
-    position: relative;
-    width: 95%;
-    min-width: auto;
-    overflow: hidden;
   }
 }

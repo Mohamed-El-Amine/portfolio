@@ -1,5 +1,5 @@
 # 0. Use script to optimize content
-./script/optimize_media.sh -o ./src/assets/content/optimized -j 6 --img-kb 50 --vid-kb 800 "./src/assets/content/original"
+./script/optimize_media.sh -o ./src/assets/content/optimized -j 6 --img-kb 50 --vid-kb 800 --img-quality 65 --video-crf 32 --video-scale 480 "./src/assets/content/original"
 
 # 1. Se placer dans le dossier du projet
 cd ~/portfolio

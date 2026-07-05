@@ -135,7 +135,7 @@ function Project({
             <div className="project-media">
                 <h3 className="project-date">{dateStart} – {dateEnd}</h3>
                 <img src={image} className="project-image" />
-                <video autoPlay muted loop preload="none" src={video} className="project-video" />
+                {/* <video autoPlay muted loop preload="none" src={video} className="project-video" /> */}
                 <img src={logo} className="project-logo" />
             </div>
 

@@ -1,0 +1,42 @@
+/**
+ * @license
+ *
+ * Font Family: Neckar
+ * Style: Bold
+ * File: neckar-bold.ttf
+ * Public metadata references:
+ * https://arabicfonts.net/fonts/neckar-bold
+ * https://fontsgeek.com/fonts/neckar-bold
+ * https://arbfonts.com/neckar-bold-font-download.html
+ *
+ * Known info:
+ * Family: Neckar
+ * Style: Bold
+ * Type: TTF
+ *
+ * Note:
+ * This import file assumes your local font file is named exactly: neckar-bold.ttf
+ * Verify the internal family name in DevTools if needed.
+ */
+
+@font-face {
+  font-family: 'Neckar';
+  src: url('../fonts/neckar-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neckar-Bold';
+  src: url('../fonts/neckar-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Example usage */
+.font-test-neckar {
+  font-family: 'Neckar', 'Neckar-Bold', serif;
+  font-weight: 700;
+}

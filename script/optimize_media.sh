@@ -3,6 +3,9 @@ set -Eeuo pipefail
 
 MAX_IMAGE_KB="${MAX_IMAGE_KB:-50}"
 MAX_VIDEO_KB="${MAX_VIDEO_KB:-200}"
+IMG_QUALITY="${IMG_QUALITY:-65}"
+VIDEO_CRF="${VIDEO_CRF:-32}"
+VIDEO_SCALE="${VIDEO_SCALE:-480}"
 IMG_MAX_BYTES=$((MAX_IMAGE_KB * 1024))
 VID_MAX_BYTES=$((MAX_VIDEO_KB * 1024))
 DEFAULT_OUT_DIR="${DEFAULT_OUT_DIR:-./optimized_media}"
@@ -11,19 +14,21 @@ DEFAULT_JOBS="${DEFAULT_JOBS:-$(nproc)}"
 show_help() {
   cat <<'HELP'
 Usage:
-  ./optimize_media_v3.sh [options] <file_or_dir> [more_files_or_dirs...]
+  ./optimize_media.sh [options] <file_or_dir> [more_files_or_dirs...]
 
 Options:
-  -o, --out DIR        Dossier de sortie (défaut: ./optimized_media)
-  -j, --jobs N         Nombre de workers (défaut: nproc)
-  --img-kb N           Limite image en Ko (défaut: 50)
-  --vid-kb N           Limite vidéo en Ko (défaut: 200)
-  -h, --help           Afficher cette aide
+  -o, --out DIR         Dossier de sortie (défaut: ./optimized_media)
+  -j, --jobs N          Nombre de workers (défaut: nproc)
+  --img-kb N            Limite image en Ko (défaut: 50)
+  --vid-kb N            Limite vidéo en Ko (défaut: 200)
+  --img-quality N       Qualité JPEG de base (défaut: 65)
+  --video-crf N         CRF vidéo (défaut: 32)
+  --video-scale N       Largeur max vidéo (défaut: 480)
+  -h, --help            Afficher cette aide
 
 Exemples:
-  ./optimize_media_v3.sh ./photos
-  ./optimize_media_v3.sh -o ./out -j 6 ./photos ./video.mp4 ./dossier2
-  ./optimize_media_v3.sh --img-kb 40 --vid-kb 180 img1.jpg img2.png clip.mp4
+  ./optimize_media.sh ./photos
+  ./optimize_media.sh -o ./out -j 6 --img-kb 50 --vid-kb 800 --img-quality 65 --video-crf 32 --video-scale 480 ./photos ./video.mp4
 
 Dépendances:
   ffmpeg, ffprobe, magick, parallel
@@ -85,6 +90,18 @@ while (($#)); do
       VID_MAX_BYTES=$((MAX_VIDEO_KB * 1024))
       shift 2
       ;;
+    --img-quality)
+      IMG_QUALITY="$2"
+      shift 2
+      ;;
+    --video-crf)
+      VIDEO_CRF="$2"
+      shift 2
+      ;;
+    --video-scale)
+      VIDEO_SCALE="$2"
+      shift 2
+      ;;
     -h|--help)
       show_help
       exit 0
@@ -138,8 +155,13 @@ compress_image() {
   fi
 
   local -a widths=(1280 960 800 640 480 320)
-  local -a qualities=(82 72 62 52 42 32 24 16 10)
+  local -a qualities=()
+  local q
+  for q in "$IMG_QUALITY" $((IMG_QUALITY - 8)) $((IMG_QUALITY - 16)) $((IMG_QUALITY - 24)) $((IMG_QUALITY - 32)) 16 10; do
+    (( q > 0 )) && qualities+=("$q")
+  done
 
+  local w
   for w in "${widths[@]}"; do
     for q in "${qualities[@]}"; do
       magick "$in" \
@@ -155,7 +177,7 @@ compress_image() {
 
       if (( size <= IMG_MAX_BYTES )); then
         mv -f "$tmp" "$out"
-        log "IMG OK   | $base -> $(basename "$out") | ${size}B"
+        log "IMG OK   | $base -> $(basename "$out") | ${size}B | q=$q"
         ok_inc
         return 0
       fi
@@ -191,7 +213,7 @@ video_duration() {
 
 compress_video() {
   local in="$1"
-  local base stem out tmp tmp2 dur budget vbr size
+  local base stem out tmp tmp2 dur size scale2
   base=$(basename "$in")
   stem="${base%.*}"
   out="$OUT_DIR/${stem}.mp4"
@@ -207,25 +229,19 @@ compress_video() {
     fi
   fi
 
-  dur=$(video_duration "$in")
-  budget=$(( (VID_MAX_BYTES * 8) / dur ))
-  vbr=$(( budget - 4000 ))
-  (( vbr < 12000 )) && vbr=12000
-
   ffmpeg -y -v error -i "$in" \
     -map 0:v:0 -an \
-    -vf "scale='min(480,iw)':-2:force_original_aspect_ratio=decrease,fps=15,format=yuv420p" \
-    -c:v libx264 -preset fast -profile:v baseline -level 3.0 -pix_fmt yuv420p \
-    -b:v "$vbr" -maxrate "$((vbr * 2))" -bufsize "$((vbr * 4))" \
+    -vf "scale='min(${VIDEO_SCALE},iw)':-2:force_original_aspect_ratio=decrease,fps=15,format=yuv420p" \
+    -c:v libx264 -preset fast -crf "$VIDEO_CRF" -pix_fmt yuv420p \
     -movflags +faststart \
     "$tmp" </dev/null >/dev/null 2>&1 || true
 
   if [[ ! -f "$tmp" ]] || (( $(fsize "$tmp") == 0 )); then
+    scale2=$(( VIDEO_SCALE > 320 ? VIDEO_SCALE - 120 : 320 ))
     ffmpeg -y -v error -i "$in" \
       -map 0:v:0 -an \
-      -vf "scale='min(360,iw)':-2:force_original_aspect_ratio=decrease,fps=12,format=yuv420p" \
-      -c:v libx264 -preset fast -pix_fmt yuv420p \
-      -crf 35 \
+      -vf "scale='min(${scale2},iw)':-2:force_original_aspect_ratio=decrease,fps=12,format=yuv420p" \
+      -c:v libx264 -preset fast -crf "$((VIDEO_CRF + 4))" -pix_fmt yuv420p \
       -movflags +faststart \
       "$tmp2" </dev/null >/dev/null 2>&1 || true
 
@@ -242,11 +258,11 @@ compress_video() {
   size=$(fsize "$tmp")
 
   if (( size > VID_MAX_BYTES )); then
+    scale2=$(( VIDEO_SCALE > 320 ? VIDEO_SCALE - 120 : 320 ))
     ffmpeg -y -v error -i "$in" \
       -map 0:v:0 -an \
-      -vf "scale='min(360,iw)':-2:force_original_aspect_ratio=decrease,fps=12,format=yuv420p" \
-      -c:v libx264 -preset fast -profile:v baseline -level 3.0 -pix_fmt yuv420p \
-      -b:v 18000 -maxrate 28000 -bufsize 56000 \
+      -vf "scale='min(${scale2},iw)':-2:force_original_aspect_ratio=decrease,fps=12,format=yuv420p" \
+      -c:v libx264 -preset fast -crf "$((VIDEO_CRF + 6))" -pix_fmt yuv420p \
       -movflags +faststart \
       "$tmp2" </dev/null >/dev/null 2>&1 || true
 
@@ -259,7 +275,7 @@ compress_video() {
   mv -f "$tmp" "$out"
 
   if (( size <= VID_MAX_BYTES )); then
-    log "VID OK   | $base -> $(basename "$out") | ${size}B"
+    log "VID OK   | $base -> $(basename "$out") | ${size}B | crf=$VIDEO_CRF scale=$VIDEO_SCALE"
     ok_inc
   else
     log "VID WARN | $base -> $(basename "$out") | ${size}B"
@@ -267,7 +283,7 @@ compress_video() {
   fi
 }
 
-export OUT_DIR WORK_DIR CNT_DIR IMG_MAX_BYTES VID_MAX_BYTES MAX_IMAGE_KB MAX_VIDEO_KB
+export OUT_DIR WORK_DIR CNT_DIR IMG_MAX_BYTES VID_MAX_BYTES MAX_IMAGE_KB MAX_VIDEO_KB IMG_QUALITY VIDEO_CRF VIDEO_SCALE
 export -f log ts fsize ok_inc warn_inc compress_image compress_video video_duration lower_ext is_image is_video
 
 collect_files() {
@@ -305,8 +321,9 @@ main() {
   local total=$(( ${#imgs[@]} + ${#vids[@]} ))
   local vid_jobs=$(( JOBS > 2 ? JOBS / 2 : 1 ))
 
-  log "=== optimize_media v3 ==="
+  log "=== optimize_media v4 ==="
   log "Limites : image<=${MAX_IMAGE_KB}KB video<=${MAX_VIDEO_KB}KB"
+  log "Qualite : img_quality=${IMG_QUALITY} video_crf=${VIDEO_CRF} video_scale=${VIDEO_SCALE}"
   log "Sortie  : $OUT_DIR"
   log "Workers : images=$JOBS videos=$vid_jobs"
   log "Total   : ${#imgs[@]} images + ${#vids[@]} videos = $total"

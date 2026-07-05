@@ -23,7 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-photo.jpg
 CPU.mp4
 IphoneRepair.mp4
-original/
+assets/content/

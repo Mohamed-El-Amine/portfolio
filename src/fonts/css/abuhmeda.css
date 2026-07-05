@@ -1,0 +1,50 @@
+/**
+* @license
+*
+* Font Family: Abuhmeda Free
+* Style: Regular
+* File: abuhmeda-free.ttf
+* Reference URLs:
+* https://arbfonts.com/abuhmeda-free-font-download.html
+* https://www.arfonts.net/abuhmeda-free-font
+* https://fontarabic.blogspot.com/2017/12/abuhmeda-free.html?m=1
+*
+* Known info:
+* Font name: Abuhmeda Free
+* Weight: Regular
+* Format: TrueType (.ttf)
+* Version: 1.000;PS 001.000;hotconv 1.0.70;makeotf.lib2.5.58329
+*
+* Note:
+* This file was prepared from publicly listed font metadata.
+* Verify the exact internal font-family name and license from your own font file before production use.
+*
+*/
+
+@font-face {
+  font-family: 'Abuhmeda-Free';
+  src: url('../fonts/abuhmeda-free.woff2') format('woff2'),
+       url('../fonts/abuhmeda-free.woff') format('woff'),
+       url('../fonts/abuhmeda-free.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* Optional alias if you want to keep the public name exactly as listed */
+@font-face {
+  font-family: 'Abuhmeda Free';
+  src: url('../fonts/abuhmeda-free.woff2') format('woff2'),
+       url('../fonts/abuhmeda-free.woff') format('woff'),
+       url('../fonts/abuhmeda-free.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* Example usage */
+.abuhmeda-title {
+  font-family: 'Abuhmeda-Free', 'Abuhmeda Free', serif;
+  font-weight: 400;
+  font-style: normal;
+}
