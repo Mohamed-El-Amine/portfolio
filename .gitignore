@@ -25,4 +25,4 @@ dist-ssr
 
 CPU.mp4
 IphoneRepair.mp4
-assets/content/
+src/assets/content/*
