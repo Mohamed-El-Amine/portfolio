@@ -39,7 +39,7 @@ function Hero() {
         <div>
           <p className="hero-subtitle">Discode, PassAgent, Bumpless… Never heard of them?</p>
 
-          <p className='hero-current'>Currently working at BK Fire as an intern.</p>
+          <p className='hero-current'>Currently working on my own portfolio.</p>
         </div>
       </div>
     </section>
