@@ -14,7 +14,7 @@ function pickSpan(isVideo) {
 
   if (roll > 0.98) return { colSpan: 3, rowSpan: 3 };
   if (roll > 0.94) return { colSpan: 2, rowSpan: 2 };
-  if (roll > 0.90) return { colSpan: 2, rowSpan: 3 };
+  if (roll > 0.9) return { colSpan: 2, rowSpan: 3 };
 
   return { colSpan: 1, rowSpan: 1 };
 }
@@ -38,12 +38,13 @@ function Tile({ tile }) {
 }
 
 function Tiles() {
+  
   const modules = import.meta.glob('/src/assets/content/optimized/*.{png,jpg,jpeg,webp,avif,gif,mp4,webm}', {
     eager: true,
     import: 'default',
   });
 
-  const tiles = Object.entries(modules)
+  let tiles = Object.entries(modules)
     .map(([filePath, url], index) => {
       const fileName = filePath.split('/').pop();
       const name = fileName.replace(/\.[^/.]+$/, '');

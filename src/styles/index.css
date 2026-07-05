@@ -634,7 +634,7 @@ body::before {
   }
 
   .tiles-group {
-    grid-template-rows: repeat(10, 32px);
+    grid-template-rows: repeat(4, 32px);
     grid-auto-columns: 32px;
     grid-auto-flow: column dense;
     gap: 6px;
